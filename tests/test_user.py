@@ -1,42 +1,30 @@
 from utils.validators import email_validation
+from utils.user import get_user_by_name, get_posts_by_user_id
 
 
-class TestExample:
+class TestExample():
 
-    def test_get_user_by_name(self, client, username):
-        res = client.get_user_by_name(username)
-        assert res.status_code == 200
-        user_data = res.json()[0]
-        assert user_data["username"] == username
-        # проверить на не пустоту
+    def test_find_user_by_name(self, client, username):
+        user_data = get_user_by_name(client, username)
+        assert user_data["username"] == username, f"Username should be {username}, but got {user_data['username']}"
 
-    def test_get_posts_by_user_id(self, client, username):
+    def test_find_posts_of_user(self, client, username):
         # get the user_id by username
-        user_result = client.get_user_by_name(username)
-        assert user_result.status_code == 200
-        user_data = user_result.json()[0]
+        user_data = get_user_by_name(client, username)
         user_id = user_data["id"]
 
         # get the user's posts by user_id
-        posts_by_user_result = client.get_posts_by_user_id(user_id)
-        assert posts_by_user_result.status_code == 200
-        # проверить на не пустоту
-        posts_by_user = posts_by_user_result.json()
+        posts_by_user = get_posts_by_user_id(client, user_id)
         for post in posts_by_user:
-            assert post["userId"] == user_id
+            assert post["userId"] == user_id, f"UserId should be {user_id}, but got {post['userId']}"
 
     def test_check_emails_in_comments(self, client, username):
         # get the user_id by username
-        user_result = client.get_user_by_name(username)
-        assert user_result.status_code == 200
-        user_data = user_result.json()[0]
+        user_data = get_user_by_name(client, username)
         user_id = user_data["id"]
 
         # get user's posts by user_id
-        posts_by_user_result = client.get_posts_by_user_id(user_id)
-        assert posts_by_user_result.status_code == 200
-        # проверить на не пустоту
-        posts_by_user = posts_by_user_result.json()
+        posts_by_user = get_posts_by_user_id(client, user_id)
 
         # get comments of each post
         for post in posts_by_user:
@@ -48,16 +36,11 @@ class TestExample:
 
     def test_check_emails_in_comments_v2(self, client, username):
         # get the user_id by username
-        user_result = client.get_user_by_name(username)
-        assert user_result.status_code == 200
-        user_data = user_result.json()[0]
+        user_data = get_user_by_name(client, username)
         user_id = user_data["id"]
 
         # get user's posts by user_id
-        posts_by_user_result = client.get_posts_by_user_id(user_id)
-        assert posts_by_user_result.status_code == 200
-        # проверить на не пустоту
-        posts_by_user = posts_by_user_result.json()
+        posts_by_user = get_posts_by_user_id(client, user_id)
 
         # get comments of each post
         for post in posts_by_user:
