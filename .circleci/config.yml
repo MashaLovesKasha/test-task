@@ -38,10 +38,10 @@ jobs:
           name: Allure report generation
           command: |
             /tmp/allure-2.13.7/bin/allure generate \
-              --report-dir allure-report \
+              --report-dir /tmp/allure-report \
               /tmp/workspace/allure-results
       - store_artifacts:
-            path: /tmp/workspace/allure-results/
+            path: /tmp/allure-report/
             destination: allure
 
 workflows:
