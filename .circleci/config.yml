@@ -18,7 +18,7 @@ jobs:
           name: Test
   report:
     docker:
-      - image: openjdk:15-slim
+      - image: openjdk:15
     steps:
       - allure/install
       - allure/report
