@@ -33,6 +33,6 @@ class ApiClient:
         return self.get(f"/posts/{post_id}/comments")
 
     @allure.step('Get comments of the post')
-    def get_comments_by_post_id_v2(self, post_id: int):
+    def get_comments_by_post_id_query_param(self, post_id: int):
         params = {"postId": post_id}
         return self.get("/comments", params=params)
