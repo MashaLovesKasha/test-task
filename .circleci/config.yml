@@ -23,8 +23,8 @@ jobs:
       - run:
           name: Allure archive download
           command: >-
-            curl -L https://github.com/allure-framework/allure2/releases/download/2.13.7/allure-2.13.7.tgz -o
-            /tmp/allure.tgz
+            curl -L https://github.com/allure-framework/allure2/releases/download/2.13.7/allure-2.13.7.tgz \
+            -o /tmp/allure.tgz
       - run:
           name: Archive extraction
           command: tar -xf /tmp/allure.tgz
