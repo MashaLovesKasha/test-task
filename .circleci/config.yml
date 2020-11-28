@@ -16,6 +16,10 @@ jobs:
       - run:
           command: pytest
           name: Test
+  report:
+    docker:
+      - image: openjdk:15-slim
+    steps:
       - allure/install
       - allure/report
 
@@ -27,3 +31,4 @@ workflows:
   main:
     jobs:
       - build-and-test
+      - report
