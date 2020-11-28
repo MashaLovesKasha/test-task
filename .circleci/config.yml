@@ -1,0 +1,25 @@
+version: 2.1
+
+orbs:
+  python: circleci/python@1.2.1
+
+jobs:
+  build-and-test:
+    executor: python/default
+    steps:
+      - checkout
+      # - python/load-cache
+      - python/install-packages:
+          pkg-manager: pip
+      # - python/save-cache
+      - run:
+          command: pytest
+          name: Test
+      - store_artifacts:
+          path: allure-results/
+          destination: allure
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
