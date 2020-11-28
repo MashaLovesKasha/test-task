@@ -20,12 +20,23 @@ jobs:
     docker:
       - image: openjdk:15
     steps:
-      - allure/install
-      - allure/report
-
-#      - store_artifacts:
-#          path: allure-results/
-#          destination: allure
+      - run:
+          name: Allure archive download
+          command: >-
+            curl -L https://github.com/allure-framework/allure2/releases/download/2.13.7/allure-2.13.7.tgz -o
+            /tmp/allure.zip
+      - run:
+          name: Archive extraction
+          command: tar -xf /tmp/allure.tgz
+      - run:
+          name: Allure report generation
+          command: |
+            /tmp/allure/bin/allure generate \
+              --report-dir allure-report \
+              allure-results
+      - store_artifacts:
+            path: allure-results/
+            destination: allure
 
 workflows:
   main:
