@@ -16,10 +16,16 @@ jobs:
       - run:
           command: pytest
           name: Test
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - allure-results
   report:
     docker:
       - image: openjdk:15
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - run:
           name: Allure archive download
           command: >-
@@ -33,9 +39,9 @@ jobs:
           command: |
             /tmp/allure-2.13.7/bin/allure generate \
               --report-dir allure-report \
-              allure-results
+              /tmp/workspace/allure-results
       - store_artifacts:
-            path: allure-results/
+            path: /tmp/workspace/allure-results/
             destination: allure
 
 workflows:
