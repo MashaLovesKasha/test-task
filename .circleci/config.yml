@@ -16,6 +16,7 @@ jobs:
       - run:
           command: pytest
           name: Test
+      - allure/install
       - allure/report
 
 #      - store_artifacts:
