@@ -1,24 +1,24 @@
 from requests import Response
 import allure
+from utils.validators import check_response
 
 
 def get_user_by_name(client, username):
     res: Response = client.get_user_by_name(username)
-    with allure.step("Check the response"):
-        with allure.step("Check the status code of the response"):
-            assert res.status_code == 200, f"Status code should be 200, but got {res.status_code}"
-        with allure.step("Check the body of the response"):
-            assert res.content is not None, f"Body should contain something, but got {res.content}"
-        user_data = res.json()[0]
-        return user_data
+    user_data = res.json()
+    allure.attach(res.content, "User's information", attachment_type=allure.attachment_type.JSON)
+    with allure.step("Check response"):
+        check_response(res, user_data)
+        with allure.step("User is found and it is unique"):
+            assert len(user_data) == 1, f"User should exist and be uniq, but got {len(user_data)} user(s)"
+    return user_data[0]
 
 
 def get_posts_by_user_id(client, user_id):
     posts: Response = client.get_posts_by_user_id(user_id)
-    with allure.step("Check the response"):
-        with allure.step("Check the status code of the response"):
-            assert posts.status_code == 200, f"Status code should be 200, but got {posts.status_code}"
-        with allure.step("Check the body of the response"):
-            assert posts.content is not None, f"Body should contain something, but got {posts.content}"
-        posts_by_user = posts.json()
-        return posts_by_user
+    posts_by_user = posts.json()
+    with allure.step("Check response"):
+        check_response(posts, posts_by_user)
+        with allure.step("At least one post was found"):
+            assert len(posts_by_user) >= 1, "This user hasn't had any posts yet"
+    return posts_by_user
