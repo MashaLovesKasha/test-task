@@ -16,8 +16,7 @@ class TestUser:
     def test_find_posts_of_user(self, client, username):
         user_data = get_user_by_name(client, username)
         user_id = user_data.get("id")
-        with allure.step(f"Check id of {username}"):
-            check_user_id(user_id)
+        check_user_id(user_id, username)
 
         posts_by_user = get_posts_by_user_id(client, user_id)
         with allure.step("Check that each post contains correct userId"):
