@@ -1,3 +1,6 @@
+[![CircleCI](https://circleci.com/gh/MashaLovesKasha/test-task.svg?style=shield)](https://app.circleci.com/pipelines/github/MashaLovesKasha/test-task)
+
+
 # Description
 
 Tests for REST API: https://jsonplaceholder.typicode.com/
@@ -26,3 +29,5 @@ make test
 make allure
 ```
 It's also available in [Circle CI](https://app.circleci.com/pipelines/github/MashaLovesKasha/test-task)
+
+To get an Allure report in Circle CI you should open the report job, choose ARTIFACTS tab and click on allure/index.html.
