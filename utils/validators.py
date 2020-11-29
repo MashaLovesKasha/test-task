@@ -30,11 +30,12 @@ def check_email(posts_by_user, func):
                             assert email_validation(email), f"Email {email} is not valid"
 
 
-def check_user_id(user_id):
-    with allure.step("Id exists"):
-        assert user_id is not None, "User should include id, but got None"
-    with allure.step("Id is integer"):
-        assert isinstance(user_id, int), f"Id should be integer, but got {user_id}"
+def check_user_id(user_id, username):
+    with allure.step(f"Check id of {username}"):
+        with allure.step("Id exists"):
+            assert user_id is not None, "User should include id, but got None"
+        with allure.step("Id is integer"):
+            assert isinstance(user_id, int), f"Id should be integer, but got {user_id}"
 
 
 def check_user_name(data_user_name):
