@@ -1,4 +1,4 @@
-#Description
+# Description
 
 Tests for REST API: https://jsonplaceholder.typicode.com/
 
@@ -11,7 +11,7 @@ Some extra response checks are also included.
 
 Test report is created in Allure.
 
-#Prepare
+# Prepare
 
 ```shell script
 python3 -m venv venv
@@ -19,7 +19,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-#Local run
+# Local run
 
 ```shell script
 make test
