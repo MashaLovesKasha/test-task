@@ -17,22 +17,3 @@ class ApiClient:
 
         with allure.step(f'GET request to: {url}{url_params}'):
             return self._s.get(url=url, params=params, headers=headers)
-
-    @allure.step('Get user by specific name')
-    def get_user_by_name(self, name: str):
-        params = {"username": name}
-        return self.get("/users", params=params)
-
-    @allure.step('Get posts by userId')
-    def get_posts_by_user_id(self, uid: int):
-        params = {"userId": uid}
-        return self.get("/posts", params=params)
-
-    @allure.step('Get comments of post')
-    def get_comments_by_post_id(self, post_id: int):
-        return self.get(f"/posts/{post_id}/comments")
-
-    @allure.step('Get comments of post')
-    def get_comments_by_post_id_query_param(self, post_id: int):
-        params = {"postId": post_id}
-        return self.get("/comments", params=params)
